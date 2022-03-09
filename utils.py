@@ -10,10 +10,11 @@ def choose_line(file_name):
 class AnswerState(Enum):
 	NoMatch = 0
 	Match = 1
-	Duplicate = 2
-	InvalidCharacter = 3
-	InvalidLength = 4
-	NoInput = 5
+	DuplicateMatch = 2
+	DuplicateNoMatch = 3
+	InvalidCharacter = 4
+	InvalidLength = 5
+	NoInput = 6
 
 def EvaluateAnswerState(answer, hint, guess):
 	# no input
@@ -25,19 +26,18 @@ def EvaluateAnswerState(answer, hint, guess):
 	# invalid input
 	if not guess.isalpha():
 		return AnswerState.InvalidCharacter	
-	# Duplicate
+	# DuplicateMatch
 	if guess in hint:
-		return AnswerState.Duplicate
+		return AnswerState.DuplicateMatch
 	# Match
 	if guess in answer:
 		return AnswerState.Match
 	# NoMatch (default)
 	return AnswerState.NoMatch
 
-
 def ReplaceCharacterInHint(answer, hint, char):
-	newHint = [None] * len(answer) # declare list of size answer
-	# loop over hint to get what we already got
+	newHint = [None] * len(answer) # declare empty list of size answer
+	# loop over hint to get what we already got, including hint indicator
 	for i, j in enumerate(hint):
 		newHint[i] = j
 	# get matching char from answer and put it in hint
