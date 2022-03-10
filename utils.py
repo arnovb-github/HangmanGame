@@ -1,6 +1,8 @@
 import random
 from enum import Enum
 
+charactersGuessed = []
+
 def choose_line(file_name): 
 	with open(file_name, 'r', encoding='utf16') as file: # you need UTF16 when file was written by Powershell
 		lines = file.readlines() 
@@ -11,10 +13,10 @@ class AnswerState(Enum):
 	NoMatch = 0
 	Match = 1
 	DuplicateMatch = 2
-	DuplicateNoMatch = 3
-	InvalidCharacter = 4
-	InvalidLength = 5
-	NoInput = 6
+	InvalidCharacter = 3
+	InvalidLength = 4
+	NoInput = 5
+	DuplicateGuess = 6
 
 def EvaluateAnswerState(answer, hint, guess):
 	# no input
@@ -22,6 +24,11 @@ def EvaluateAnswerState(answer, hint, guess):
 		return AnswerState.NoInput
 	# too long
 	if len(guess) > 1:
+		# we're going to allow for a cheat:
+		# you can type in the entire answer,
+		# allowing for immediate exit.
+		if guess == answer:
+			return AnswerState.Match
 		return AnswerState.InvalidLength
 	# invalid input
 	if not guess.isalpha():
@@ -32,6 +39,12 @@ def EvaluateAnswerState(answer, hint, guess):
 	# Match
 	if guess in answer:
 		return AnswerState.Match
+	# DuplicateGuess
+	if charactersGuessed.count(guess) > 0:
+		return AnswerState.DuplicateGuess
+	# store already guessed characters
+	if not charactersGuessed.count(guess) > 0:
+		charactersGuessed.append(guess)
 	# NoMatch (default)
 	return AnswerState.NoMatch
 
