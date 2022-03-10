@@ -39,6 +39,7 @@ while guessesLeft > 0:
             hint = ReplaceCharacterInHint(answer, hint, guess)
             if hint == answer:
                 print(f"Congratulations! You found the answer '{answer}' in {numGuesses - guessesLeft} tries.")
+                input("Press Enter to close the program.")
                 break
             print(f"Nice one! The answer does indeed contain '{guess}'.")
             continue
