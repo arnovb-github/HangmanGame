@@ -1,6 +1,6 @@
 import sys
 import argparse
-from utils import *  # import all functionality from utils.py
+from utils import *
 from ascii_art import *
 
 numGuesses = 10
@@ -12,7 +12,7 @@ Can you guess the word in {numGuesses} tries?
 """
 
 def main(argv):
-    # get comnmand line arguments
+    # get command line arguments
     args = cli(argv)
     easyMode = args.easy
     # preliminary setup
@@ -20,7 +20,7 @@ def main(argv):
     answer = choose_line(wordList).rstrip().lower() # if you don't strip you may be left with a dangling \r
     wordLength = len(answer)
     hint = hintIndicator * wordLength
-    guessesLeft = numGuesses
+    guessesLeft = numGuesses # guessesLeft will decrement
     # main program loop
     while guessesLeft > 0:
 
@@ -43,13 +43,15 @@ def main(argv):
             case AnswerState.DuplicateMatch:
                 print(f"You already found the character '{guess}'. Please try again.")
                 continue
-            case AnswerState.DuplicateGuess:
+            case AnswerState.DuplicateNoMatch:
                 if easyMode:
                     print(f"You already tried '{guess}' silly!")
                     continue
                 else:
-                    # duplicate of NoMatch output. Want to refactor but don't know how yet.
                     print(f"Too bad. The answer does not contain '{guess}'.")
+                    # duplicate of NoMatch output. Ideally want to refactor (DRY principle) but not sure how yet.
+                    # the simplest way woyuld probably to move the logic from EvaluateAnswerState to main loop,
+                    # but that would make it more messy.
                     guessesLeft -= 1
                     if guessesLeft > 0:
                         continue
@@ -70,7 +72,7 @@ def main(argv):
 
 class CustomFormatter(argparse.ArgumentDefaultsHelpFormatter,
                       argparse.RawDescriptionHelpFormatter):
-    pass
+    pass # do nothing
 
 def cli(argv):
     parser = argparse.ArgumentParser(
@@ -79,9 +81,9 @@ def cli(argv):
         formatter_class=CustomFormatter)
 
     parser.add_argument(
-        "--easy",
+        "--easy", "-e",
         action='store_true',
-        help="Remember what characters you already tried.")
+        help="Remembers what characters you already tried.")
 
     args = parser.parse_args(argv[1:])
 

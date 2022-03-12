@@ -16,7 +16,7 @@ class AnswerState(Enum):
 	InvalidCharacter = 3
 	InvalidLength = 4
 	NoInput = 5
-	DuplicateGuess = 6
+	DuplicateNoMatch = 6
 
 def EvaluateAnswerState(answer, hint, guess):
 	# no input
@@ -41,10 +41,11 @@ def EvaluateAnswerState(answer, hint, guess):
 		return AnswerState.Match
 	# DuplicateGuess
 	if charactersGuessed.count(guess) > 0:
-		return AnswerState.DuplicateGuess
+		return AnswerState.DuplicateNoMatch
 	# store already guessed characters
 	if not charactersGuessed.count(guess) > 0:
 		charactersGuessed.append(guess)
+	# implement and include flag here for both Duplicate and NoMatch? 
 	# NoMatch (default)
 	return AnswerState.NoMatch
 
