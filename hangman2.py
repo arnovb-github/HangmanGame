@@ -9,14 +9,10 @@ import sys
 import argparse
 from utils import *
 from ascii_art import *
+from cli_args import *
 
 numGuesses = 10
 hintIndicator = "_"
-description = f"""
-Hangman game
---------------
-Can you guess the word in {numGuesses} tries?
-"""
 
 def main(argv):
     # get command line arguments
@@ -83,25 +79,6 @@ def main(argv):
             continue
     # No answer was found
     print(f"Oh dear. You did not guess the word. The word was '{answer}'. Better luck next time.")
-
-class CustomFormatter(argparse.ArgumentDefaultsHelpFormatter,
-                      argparse.RawDescriptionHelpFormatter):
-    pass # do nothing
-
-def cli(argv):
-    parser = argparse.ArgumentParser(
-        prog=argv[0],
-        description=description,
-        formatter_class=CustomFormatter)
-
-    parser.add_argument(
-        "--easy", "-e",
-        action='store_true',
-        help="Remembers what characters you already tried.")
-
-    args = parser.parse_args(argv[1:])
-
-    return args
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
