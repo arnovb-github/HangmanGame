@@ -1,1 +1,1 @@
-My first ever Python program :-)
+My first ever Python program :-) It is just a toy program to familiarize myself a little bit with the Python programming language.
