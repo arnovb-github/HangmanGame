@@ -1,6 +1,7 @@
 # holds the command line argument stuff
 
 import argparse
+import settings as gs
 
 description = """
 Hangman game
@@ -22,6 +23,27 @@ def cli(argv):
         "--easy", "-e",
         action='store_true',
         help="Remembers what characters you already tried.")
+
+    parser.add_argument(
+        "--numguesses", "-n",
+        required=False,
+        type=int,
+        default=gs.NUMGUESSES,
+        help="Number of guesses.")
+
+    parser.add_argument(
+        "--length", "-l",
+        required=False,
+        type=int,
+        default=gs.WORDLENGTH,
+        help="Length of word to guess (omit for random length).")
+
+    parser.add_argument(
+        "--wordlist", "-w",
+        required=False,
+        type=str,
+        default=gs.WORDLIST,
+        help="Path to file with words (UTF8 encoded).")
 
     args = parser.parse_args(argv[1:])
 

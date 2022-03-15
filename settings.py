@@ -1,3 +1,4 @@
 NUMGUESSES = 10
 HINTINDICATOR = "_"
-WORDLIST = "woordenlijst.txt"
+WORDLIST = "wordlist.txt"
+WORDLENGTH = -1
