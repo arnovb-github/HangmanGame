@@ -1,5 +1,5 @@
 # An implementation of Hangman
-# I created it because I never programnmed in Python before.
+# I created it because I never programmed in Python before.
 
 # I prefer this version over hangman2.py, 
 # because the 'UI' and logic are separated.
@@ -85,7 +85,7 @@ def main(argv):
                 continue
         print(f"Oh dear. You did not guess the word. The word was '{answer}'. Better luck next time.")
 
-# this bugs me. To make the program more pythony, you have to include abominations like this :)
-# I mean, wtf does this actually do, right?
+# I did not understand this at first but this is very important
+# when you modulize things. It provides an entry point for other scripts.
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
