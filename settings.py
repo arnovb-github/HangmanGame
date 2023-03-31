@@ -2,3 +2,4 @@ NUMGUESSES = 10
 HINTINDICATOR = "_"
 WORDLIST = "wordlist.txt"
 WORDLENGTH = -1
+DEBUG_ANSWER='debug'

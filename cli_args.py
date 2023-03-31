@@ -45,6 +45,11 @@ def cli(argv):
         default=gs.WORDLIST,
         help="Path to file with words (UTF8 encoded).")
 
+    parser.add_argument(
+        "--debug", "-d",
+        action='store_true',
+        help="Debug mode. The answer is 'DEBUG'.")
+
     args = parser.parse_args(argv[1:])
 
     return args
